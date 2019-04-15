@@ -1,0 +1,89 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+
+
+<head>
+<style id="Mon style">
+table{
+border-collapse:collapse;
+top: auto; 
+width:100% ; /*800 X 2000px*/
+table-layout:fixed;
+}
+td {
+ white-space: nowrap;
+ overflow:visible; 
+ font-size: 0.5em;    /*8 X 2000px*/
+ border-width:0.3px; 
+ border-style:solid;
+ text-align:center;
+ }
+td a{
+   display:block; 
+   width:100%; 
+   height:100%;
+}
+th {
+ overflow: hidden;
+ word-wrap:hyphenate;
+ font-size:0.4em;   /*8 X 2000px*/
+ border-width:0.5px; 
+ border-style:solid;
+ text-align:center;
+ }
+</style>
+</head>
+
+<body >
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+
+    <h2>{{  Titre }}</h2>
+    <div>
+       {% if listResa %}
+	   <table>
+            <thead>	 
+                <tr style="top: auto;">
+                    <th style="width: 5%; "></th> <!-- 40px X 2000-->
+                    {% for mois in nbDaysInMonth %}
+                       <th colspan="{{ mois.nbjrs }}" style="font-size:0.8em;"> {{mois.mois}} </th>
+                    {% endfor%}
+                </tr>
+                <tr>
+                    <th style="width: 5%; font-size:0.9em;">
+                        Vehicule
+                    </th>
+                    {% for date in allDates %}
+                      <th> {{ date }}</th>
+                    {% endfor%}
+                </tr>
+			</thead>
+			<tbody>
+			  {% for vehicule in listResa %}
+                <tr>
+				    {% for coll in vehicule %}
+                         
+						<td  
+                           {% if coll.span != '0' %}
+                             colspan="{{ coll.span }}"  {% endif %}   
+ 
+                           style="background-color:{{ coll.color }}; {% if coll.first == 'X' %} font-size:0.9em; {% endif %} 
+                         ">
+
+						   {% if coll.link == 'X' %} 
+                             <a href="{% url 'reservation:editResa' coll.resa.pk %}" > {% endif %} 
+
+                            {% if coll.first == 'X'  %}  {{ coll.resa }} {% else %}  &nbsp; {% endif %} 
+
+                           {% if coll.link == 'X'  %}  </a> {% endif %} 
+						</td>
+
+				    {% endfor %}	
+				</tr>
+			  {% endfor %}			
+			</tbody>
+	   </table>
+	   {% endif %}
+    </div>
+
+
+</body>
+</html>

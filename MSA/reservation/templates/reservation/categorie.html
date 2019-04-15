@@ -1,0 +1,32 @@
+﻿{% extends 'home/base.html' %}
+{% load resa_extras %}
+
+{% block content %}
+
+    <div> 
+       <ul>
+         <li>   
+           Reservation pour {{ nbjours }} jour(s) 
+           pour la periode du {{  date_resa.date_debut }} ({{  date_resa.heure_debut }}) 
+           au {{  date_resa.date_fin }} ({{  date_resa.heure_fin }}) 
+         </li>
+       </ul>
+    </div>
+
+
+    <div> <h2>{{ Titre }} </h2></div>
+
+
+    {% for categorie in liste_categories %}
+    
+         <article class="cat_vehicule">
+             <a href="{% url 'reservation:choixVehicule' categorie=categorie.pk %}">
+                <header> <h1>Categorie {{ categorie.categorie }}</h1> </header>
+                <section>
+                  <P>Tarif : {{ categorie.tarif }} euro/jr - Total : {{ prix_loc|hash:categorie.categorie }} </P>
+                  <P>{{ categorie.description }}</P>
+                </section>
+            </a>
+         </article>
+    {% endfor %}
+{% endblock %}

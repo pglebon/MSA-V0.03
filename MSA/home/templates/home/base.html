@@ -1,0 +1,82 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>M.S.A Application</title>
+        <meta charset="utf-8" />   
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+
+        <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
+        <script type="text/javascript" src="{% static '/admin/js/core.js' %}"></script>
+
+        <link rel="stylesheet" type="text/css" media="all" href="{% static '/css/base.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static '/admin/css/widgets.css' %}">
+        <style>.calendar>table>caption{caption-side:unset}</style><!--caption fix for bootstrap4-->
+        {{ form.media }}        {# Form required JS and CSS #}
+
+    </head>
+
+   <!-- Structure de notre page: -->
+   <!-- https://viseo.developpez.com/tutoriels/css/responsive-design/ -->
+   <body>
+      <div class="layout-main">
+         <div class="main">
+            <div class="layout-menu">
+
+                <!-- Login-->
+                <div class="login" style="display:block; background-color:#125b80;">
+                    {% if user.is_authenticated %}
+                        <p style="margin:0px">Bonjour {{ user.username }} ! </p>
+                        <p style="margin:0px"><a href="{% url 'home:logout' %}">Se deconnecter</a></p>
+                    {% else %}
+                        <a href="{% url 'home:login' %}">Connection</a>
+                    {% endif %}
+                </div>
+
+               <!-- Menu -->
+               <div class="menu">
+                    <nav>
+                        <ul>
+                            <li><a href="{% url 'home:index' %}">Home</a></li>
+                            <li><a href="{% url 'vehicule:listeCategories' %}">Categorie</a></li>
+                            <li><a href="{% url 'vehicule:index' %}">Vehicules</a></li>
+                            <li><a href="{% url 'partenaire:index' %}">Partenaires</a></li>
+                            <li><a href="{% url 'reservation:index' %}">Reservation</a></li>
+                        </ul>
+                    </nav>
+                  
+                    <select onChange="window.location.href=this.value">
+                        <option selected="selected">Choisir un menu</option>
+                        <option value="{% url 'home:index' %}">Home</option>
+                        <option value="{% url 'vehicule:listeCategories' %}">Categorie</option>
+                        <option value="{% url 'vehicule:index' %}">Vehicules</option>
+                        <option value="{% url 'partenaire:index' %}">Partenaires</option>
+                        <option value="{% url 'reservation:index' %}">Reservation</option>
+                    </select>
+               </div>
+               
+            </div><div class="layout-content">
+               <!-- Contenu -->
+               <div class="content">
+
+                     {% block content %}
+                      <!-- <div class="content-item"> -->
+                      <!-- <div class="article"> -->
+                     {% endblock %}
+
+               </div>
+            </div><div class="layout-adv">
+               <!-- Publicités -->
+               <div class="adv">
+                     {% block adv %}
+                     <!--  <div class="adv-item"> -->
+                     {% endblock %}
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
+
+
+

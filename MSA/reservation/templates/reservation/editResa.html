@@ -1,0 +1,22 @@
+﻿{% extends 'home/base.html' %}
+
+{% block content %}
+    <h1>{{ titre }}</h1>
+    <h2><a href="{% url 'reservation:editContrat' resa.pk %}">Editer le contrat</a></h2>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {% for field in form %}
+            <div class="fieldWrapper">
+                     {% if field.errors  %}
+                       <p>{{ field.errors }}</p>
+                     {% endif %}
+                     <p>{{ field.label_tag }}</p> 
+                     <p>{{ field }}</p>
+               {% if field.help_text %}
+                  <p class="help">{{ field.help_text|safe }}</p>
+               {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}
+<!-- {{ form.as_p }} -->

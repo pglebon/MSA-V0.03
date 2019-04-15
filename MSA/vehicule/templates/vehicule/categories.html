@@ -1,0 +1,20 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+    <div><a href="{% url 'vehicule:newCategorie' %}">Nouvelle categorie</a></div>
+   {% if liste_categories %}
+    {% for categorie in liste_categories %}
+     <article class="vehicule" > 
+        <header><h3><a style ="display:block;" href="{% url 'vehicule:editCategorie' categorie.pk %}">{{ categorie.categorie }}</a></h3></header>
+        <section>
+            <p>Tarif : {{ categorie.tarif }} Eur/jour</p>
+            <p>Description : {{ categorie.description }} </p>         
+        </section>
+    </article>
+    {% endfor %}
+   {% else %}
+       <p>Aucune categorie trouve</p>
+   {% endif %}
+
+{% endblock %}
+

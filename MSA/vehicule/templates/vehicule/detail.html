@@ -1,0 +1,30 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+   {% if vehicule %}
+    <div><a href="{% url 'vehicule:EditVehicule' pk=vehicule.pk  %}">Modifier vehicule</a></div>
+    <article class="post">
+        <header> <h1>{{ vehicule.Immatriculation }} cat :{{ vehicule.categorie }}  </h1> </header>
+        <section>
+            <h2>{{ vehicule.Marque }} {{ vehicule.Description }} {{ vehicule.Couleur }}</h2>
+            <p>Date MEC : {{ vehicule.DatePMEC }}</p>
+            <p>Nb porte : {{ vehicule.NBPortes }}</p>
+            <p>Nb cles :  {{ vehicule.NbCles }}</p>
+            <p>{% if vehicule.DispoVente == True %}
+                   Disponible a la vente
+               {% else %}
+                   Nom disponible a la vente
+               {% endif %}
+             </p>      
+            <p>{% if vehicule.DispoLocation == True %}
+                   Disponible a la location
+               {% else %}
+                   Nom disponible a la location
+               {% endif %}
+             </p>            
+        </section>
+    </article>
+   {% else %}
+       <p>Aucun vehicule trouve</p>
+   {% endif %}
+{% endblock %}

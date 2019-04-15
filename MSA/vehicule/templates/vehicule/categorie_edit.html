@@ -1,0 +1,18 @@
+﻿{% extends 'home/base.html' %}
+
+{% block content %}
+    <h1>{{ titre }}</h1>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {% for field in form %}
+            <div class="fieldWrapper">
+                {{ field.errors }}
+                {{ field.label_tag }} {{ field }}
+                {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}
+<!-- {{ form.as_p }} -->

@@ -1,0 +1,94 @@
+/* ----------------------------- */
+/* ==reset */
+/* ----------------------------- */
+
+
+/*Pero*/
+.cat_vehicule {
+    text-align: center;
+    border-color: #f8f8f8;
+    display: inline-block;
+    width: 300px;
+    height: 100px;
+    margin: 1em;
+}
+
+    .cat_vehicule a:link a:visited {
+        background-color: #cecece;
+        color: #333;
+        /*padding: 14px 25px;*/
+        text-decoration: none;
+    }
+
+    .cat_vehicule a:hover a:active {
+        background-color: #79aec8;
+    }
+
+.partenaire {
+    text-align: center;
+    border-color: #f8f8f8;
+    display: inline-block;
+    width: 300px;
+   /* height: 300px;*/
+    vertical-align: top;
+}
+    .partenaire header {
+        height: 50px;
+        background-color: lavender;
+    }
+    .partenaire div {
+        height: 200px;
+        background-color: ghostwhite;
+    }
+    .partenaire p {
+        margin: 0px;
+    }
+    .partenaire footer {
+        height: 30px;
+        background-color: lavender;
+    }
+    .partenaire a:link, .partenaire a:visited, .partenaire a:active {
+        text-decoration: none;
+        color: black;
+    }
+    .partenaire a:hover {
+        text-decoration: none;
+        color: grey;
+    }
+
+/*Nav barre*/
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+nav li {
+    float: left;
+    border-right: 1px solid #bbb;
+}
+
+    nav li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+        /* Change the link color to #111 (black) on hover */
+        nav li a:hover  {
+            background-color: #ccc;
+        }
+
+        nav li a:visited {
+            color: white;
+        }
+        nav li a:active {
+            background-color: #558181;
+        }
+nav li:last-child {
+    border-right: none;
+}

@@ -1,0 +1,79 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% load extras %}
+
+
+{% block content %}
+    <div  class="content-item-menu">
+        <a href="{% url 'partenaire:new' %}">Nouveau partenaire</a>
+    </div>
+    <div  class="content-item-filtre"> 
+        <form action="#" method="post">{% csrf_token %}
+            Filtre : {{ form.nom }} {{ form.prenom }} {{ form.tel }}
+          <!--<input type="text" name="nom" value="Nom">
+           <input type="text" name="prenom" value="Prenom">
+           <input type="text" name="tel" value="tel">--> 
+           <input type="submit" value="Filtrer">
+        </form>
+    </div>
+   {% if liste_partenaire %}
+      {% if Tableau == 'X'  %}
+       <table>
+            <thead>
+                <tr>
+                    <th>Numero</th>
+                    <th>Titre</th>
+                    <th>RaisonSociale</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Addresse</th>
+                    <th>Telephone</th>
+                    <th>Email</th>
+                    <th>DateNaissance</th>
+                    <th>NumeroPermis</th>
+                    <th>DateCreation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for partenaire in liste_partenaire %}
+                <tr>
+                    <td><a href="{% url 'partenaire:EditPartenaire' partenaire.pk %}"> {{ partenaire.pk }}</a></td>
+                    <td>{{ partenaire.Titre }}</td>
+                    <td>{{ partenaire.RaisonSociale }}</td>
+                    <td>{{ partenaire.Nom }}</td>
+                    <td>{{ partenaire.Prenom }}</td>
+                    <td>{{ partenaire.Adresse }}</td>
+                    <td>{{ partenaire.Telephone }}</td>
+                    <td>{{ partenaire.Email }}</td>
+                    <td>{{ partenaire.DateNaissance }}</td>
+                    <td>{{ partenaire.NumeroPermis }}</td>
+                    <td>{{ partenaire.DateCreation }}</td>
+                </tr>
+                {% endfor %}
+             <tbody>
+            <tfoot>
+            </tfoot>
+        </table> 
+      {% else %}
+         {% for partenaire in liste_partenaire %}
+
+         <article class="content-item" > 
+            <img class ="logo-partenaire" src= "{% static partenaire.Titre|partlogo %} " >
+             <div style="height:40px" >
+                 <a href="{% url 'partenaire:EditPartenaire' partenaire.pk %}"> 
+                        <h3> {{ partenaire.Nom }} {{ partenaire.Prenom}}  </h3>
+                 </a>
+            </div>
+            <div style="height:200px; vertical-align: top;">
+                {% if partenaire.RaisonSociale %} <div> {{ partenaire.RaisonSociale }} </div> {% endif %} 
+                <div> {{ partenaire.Adresse|linebreaks }}</div>
+                <div>tel : {{ partenaire.Telephone }} </div>
+                <div> Ne le {{ partenaire.DateNaissance }}</div>
+            </div>
+          </article>
+         {% endfor %}
+      {% endif %}
+   {% else %}
+       <p>Aucun partenaire trouve</p>
+   {% endif %}
+{% endblock %}

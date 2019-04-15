@@ -1,0 +1,63 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+    <div><a href="{% url 'vehicule:NewVehicule' %}">Nouveau vehicule</a></div>
+   {% if liste_vehicules %}
+    {% for vehicule in liste_vehicules %}
+     <article class="vehicule" > <!--style="background-image: url( {% static 'logo/Renault.png' %} );"-->
+        <img class ="logo-marque" src= "{% static vehicule.Marque.LogoUrl.name  %} " > <!--'logo/Renault.png'-->
+        <header><h3><a style ="display:block;" href="{% url 'vehicule:detail' vehicule.pk %}">{{ vehicule.Immatriculation }} ({{ vehicule.categorie }})</a></h3></header>
+        <section>
+            <p>{{ vehicule.Marque }} {{ vehicule.Description }} {{ vehicule.Couleur }}</p>
+            <p>Date MEC : {{ vehicule.DatePMEC }} </p>
+            <p>{% if vehicule.DispoVente == True %}
+                   Vente -
+               {% endif %}
+               {% if vehicule.DispoLocation == True %}
+                   Location
+               {% endif %}
+             </p>            
+        </section>
+    </article>
+    {% endfor %}
+   {% else %}
+       <p>Aucun vehicule trouve</p>
+   {% endif %}
+
+   <!--
+       <table>
+            <thead>
+                <tr>
+                    <th>Immatriculation</th>
+                    <th>Marque</th>
+                    <th>Description</th>
+                    <th>Couleur</th>
+                    <th>DatePMEC</th>
+                    <th>NBPortes</th>
+                    <th>NbCles</th>
+                    <th>DispoVente</th>
+                    <th>DispoLocation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vehicule in liste_vehicules %}
+                <tr>
+                    <td><a href="{% url 'vehicule:detail' vehicule.pk %}"> {{ vehicule.Immatriculation }}</a></td>
+                    <td>{{ vehicule.Marque }}</td>
+                    <td>{{ vehicule.Description }}</td>
+                    <td>{{ vehicule.Couleur }}</td>
+                    <td>{{ vehicule.DatePMEC }}</td>
+                    <td>{{ vehicule.NBPortes }}</td>
+                    <td>{{ vehicule.NbCles }}</td>
+                    <td>{{ vehicule.DispoVente }}</td>
+                    <td>{{ vehicule.DispoLocation }}</td>
+                </tr>
+                {% endfor %}
+             <tbody>
+            <tfoot>
+            </tfoot>
+        </table> 
+       -->
+
+{% endblock %}
+

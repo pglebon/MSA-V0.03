@@ -1,0 +1,85 @@
+﻿{% extends 'home/base.html' %}
+
+{% block content %}
+ 
+    <div> 
+       <ul>
+         <li>   
+           Reservation pour {{ nbjours }} jour(s) 
+           pour la periode du {{ date_resa.date_debut }} ({{ date_resa.heure_debut }}) 
+           au {{ date_resa.date_fin }} ({{ date_resa.heure_fin }}) 
+         </li>
+
+        <li> {{ categorie }} </li>
+
+        <li> Vehicule: {{ vehicule.Immatriculation }}  - {{ vehicule.Marque }} {{ vehicule.Description }} {{ vehicule.Couleur }} </li>
+    
+        {% for client in client %}
+            <li> Client : {{ client }} </li> 
+        {% endfor %}
+
+        {% for conducteur in conducteur %} 
+            <li> Conducteurs : {{ conducteur }} </li>
+            <li><a href="{% url 'reservation:save' %}">Enregistrer la reservation</a></li>
+        {% endfor %}
+       </ul>
+    </div>
+
+    <div> <h2>{{ Titre }} </h2></div>
+
+    {% if FormRechPart %}
+        <form name="FormRechPart" action="#" method="post">
+            {% csrf_token %}
+            {{ FormRechPart }}
+            <input type="submit" value="Rechercher">
+        </form>
+    {% endif %}
+
+   {% if liste_partenaire %}
+       <table>
+            <thead>
+                <tr>
+                    <th>Numero</th>
+                    <th>Titre</th>
+                    <th>RaisonSociale</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Addresse</th>
+                    <th>Telephone</th>
+                    <th>Email</th>
+                    <th>DateNaissance</th>
+                    <th>NumeroPermis</th>
+                    <th>DateCreation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for partenaire in liste_partenaire %}
+                <tr>
+                    <td>
+                        <a href="{% url 'partenaire:EditPartenaire' partenaire.pk %}"> Modifier </a> - 
+                        <a href="{% url 'reservation:add_driver' partenaire.pk %}"> Conducteur</a> -
+                        <a href="{% url 'reservation:add_custumer' partenaire.pk %}"> Client</a> 
+                    </td>
+                    <td>{{ partenaire.Titre }}</td>
+                    <td>{{ partenaire.RaisonSociale }}</td>
+                    <td>{{ partenaire.Nom }}</td>
+                    <td>{{ partenaire.Prenom }}</td>
+                    <td>{{ partenaire.Addresse }}</td>
+                    <td>{{ partenaire.Telephone }}</td>
+                    <td>{{ partenaire.Email }}</td>
+                    <td>{{ partenaire.DateNaissance }}</td>
+                    <td>{{ partenaire.NumeroPermis }}</td>
+                    <td>{{ partenaire.DateCreation }}</td>
+                </tr>
+                {% endfor %}
+             <tbody>
+            <tfoot>
+            </tfoot>
+        </table> 
+   {% else %}
+       <p>Aucun partenaire trouve</p>
+   {% endif %}
+
+
+
+{% endblock %}

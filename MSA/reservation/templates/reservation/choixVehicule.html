@@ -1,0 +1,56 @@
+﻿{% extends 'home/base.html' %}
+
+{% block content %}
+
+    <div> 
+       <ul>
+           <li>   
+             Reservation pour {{ nbjours }} jour(s) 
+             pour la periode du {{ date_resa.date_debut }} ({{ date_resa.heure_debut }}) 
+             au {{ date_resa.date_fin }} ({{ date_resa.heure_fin }}) 
+           </li>
+
+           <li> {{ categorie }} </li>
+      </ul>
+    </div>
+
+    <div> <h2>{{ Titre }}</h2></div>
+
+    <div><a href="{% url 'vehicule:NewVehicule' %}">Nouveau vehicule</a></div>
+   {% if liste_vehicules %}
+       <table>
+            <thead>
+                <tr>
+                    <th>Immatriculation</th>
+                    <th>Marque</th>
+                    <th>Description</th>
+                    <th>Couleur</th>
+                    <th>DatePMEC</th>
+                    <th>NBPortes</th>
+                    <th>NbCles</th>
+                    <th>DispoVente</th>
+                    <th>DispoLocation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vehicule in liste_vehicules %}
+                <tr>
+                    <td><a href="{% url 'reservation:choixClient' immatriculation=vehicule.pk %}"> {{ vehicule.Immatriculation }}</a></td>
+                    <td>{{ vehicule.Marque }}</td>
+                    <td>{{ vehicule.Description }}</td>
+                    <td>{{ vehicule.Couleur }}</td>
+                    <td>{{ vehicule.DatePMEC }}</td>
+                    <td>{{ vehicule.NBPortes }}</td>
+                    <td>{{ vehicule.NbCles }}</td>
+                    <td>{{ vehicule.DispoVente }}</td>
+                    <td>{{ vehicule.DispoLocation }}</td>
+                </tr>
+                {% endfor %}
+             <tbody>
+            <tfoot>
+            </tfoot>
+        </table> 
+   {% else %}
+       <p>Aucun vehicule trouve</p>
+   {% endif %}
+{% endblock %}
